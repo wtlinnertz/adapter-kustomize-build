@@ -52,8 +52,8 @@ jobs:
         run: pip install -e adapter
       - name: Install kustomize
         run: |
-          curl -sLO https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64.tar.gz
-          tar xzf kustomize_linux_amd64.tar.gz
+          curl -sLO "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz"
+          tar xzf kustomize_v5.4.3_linux_amd64.tar.gz
           sudo mv kustomize /usr/local/bin/
 
       - name: Run conformance
