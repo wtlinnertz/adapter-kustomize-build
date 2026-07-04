@@ -56,9 +56,19 @@ jobs:
           tar xzf kustomize_v5.4.3_linux_amd64.tar.gz
           sudo mv kustomize /usr/local/bin/
 
+      - name: Provision target manifests repo
+        run: |
+          TR="$RUNNER_TEMP/aieos-target-repo"
+          mkdir -p "$TR" && cd "$TR"
+          git init -q
+          git config user.email "ci@aieos.local"
+          git config user.name "aieos-ci"
+          git commit -q --allow-empty -m "init"
+          echo "AIEOS_FIXTURE_TARGET_REPO=$TR" >> "$GITHUB_ENV"
+          echo "provisioned target repo at $TR"
+
       - name: Run conformance
         id: conformance
-        continue-on-error: true
         uses: wtlinnertz/aieos-governance-foundation/.github/actions/run-conformance@main
         with:
           adapter-id: adapter-kustomize-build
